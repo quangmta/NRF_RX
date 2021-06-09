@@ -68,7 +68,7 @@ uint8_t dt_reg,buf1[20];
 char str1[]="Hell";
 extern uint8_t RX_BUF;
 uint8_t fifostatus;
-extern rx_flag;
+extern rx_flag,tx_flag;
 /* USER CODE END 0 */
 
 /**
@@ -102,30 +102,13 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  //NRF24_Init();
-  //NRF24_RxMode(RxAddress, 10);
-  //NRF24_ReadAll(data);
-  //NRF24_TxMode(TxAddress, 10);
   /* USER CODE END 2 */
   NRF24_ini();
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  NRF24L01_RX_Mode();
-  //NRF24L01_RX_Mode();
   while (1)
   {
-    /* USER CODE BEGIN 3 */
-//	  fifostatus = NRF24_ReadReg(FIFO_STATUS);
-//	  flag=NRF24L01_Send(TxData);
-//	  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
-//	  fifostatus = NRF24_ReadReg(FIFO_STATUS);
-//	  HAL_Delay(1000);
-	  IRQ_Callback();
-	  if(rx_flag)
-	  {
-		  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
-		  rx_flag=0;
-	  }
+	  NRF24L01_Receive();
   }
   /* USER CODE END 3 */
 }
