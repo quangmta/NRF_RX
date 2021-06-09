@@ -35,15 +35,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_ranges 00000888  00000000  00000000  0002d3d8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0002032a  00000000  00000000  0002dc60  2**0
+ 16 .debug_macro  00020324  00000000  00000000  0002dc60  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00009dc2  00000000  00000000  0004df8a  2**0
+ 17 .debug_line   00009dc2  00000000  00000000  0004df84  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000c34a8  00000000  00000000  00057d4c  2**0
+ 18 .debug_str    000c34a8  00000000  00000000  00057d46  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  0011b1f4  2**0
+ 19 .comment      00000053  00000000  00000000  0011b1ee  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000024d0  00000000  00000000  0011b248  2**2
+ 20 .debug_frame  000024d0  00000000  00000000  0011b244  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -878,8 +878,8 @@ void IRQ_Callback(void)
  8000856:	3708      	adds	r7, #8
  8000858:	46bd      	mov	sp, r7
  800085a:	bd80      	pop	{r7, pc}
- 800085c:	20000034 	.word	0x20000034
- 8000860:	2000003c 	.word	0x2000003c
+ 800085c:	20000040 	.word	0x20000040
+ 8000860:	20000034 	.word	0x20000034
  8000864:	20000030 	.word	0x20000030
  8000868:	20000031 	.word	0x20000031
 

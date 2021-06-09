@@ -20,7 +20,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "MY_NRF24.h"
-#define TX_PLOAD_WIDTH 5
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -60,16 +59,14 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t RxAddress[] = {0xEE,0xDD,0xCC,0xBB,0xAA};
 uint8_t RxData[32];
 uint8_t flag=0;
 uint8_t data[50];
 uint8_t Tx=0,Rx;
-uint8_t TxAddress[] = {0xEE,0xDD,0xCC,0xBB,0xAA};
 uint8_t TxData[] = "Hell";
 uint8_t dt_reg,buf1[20];
 char str1[]="Hell";
-uint8_t RX_BUF[TX_PLOAD_WIDTH] = {0};
+extern uint8_t RX_BUF;
 uint8_t fifostatus;
 extern rx_flag;
 /* USER CODE END 0 */
