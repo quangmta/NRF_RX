@@ -59,16 +59,19 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t RxData[32];
-uint8_t flag=0;
-uint8_t data[50];
-uint8_t Tx=0,Rx;
-uint8_t TxData[] = "Hell";
-uint8_t dt_reg,buf1[20];
-char str1[]="Hell";
-extern uint8_t RX_BUF;
-uint8_t fifostatus;
-extern rx_flag,tx_flag;
+uint8_t RxData[10];
+uint8_t TxData[] = "play";
+uint8_t address;
+extern uint8_t Rx_str[5];
+extern uint8_t rx_flag,tx_flag;
+//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+//{
+//	if(GPIO_Pin==GPIO_PIN_4)
+//	{
+//		IRQ_Callback();
+//
+//	}
+//}
 /* USER CODE END 0 */
 
 /**
@@ -104,11 +107,28 @@ int main(void)
   /* USER CODE BEGIN 2 */
   /* USER CODE END 2 */
   NRF24_ini();
+  NRF24L01_RX_Mode();
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  NRF24L01_Receive();
+    /* USER CODE END WHILE */
+	CS_ON;
+	address=0x0A|0x20;
+	HAL_SPI_Transmit(&hspi1, &address, 1, 100);
+	HAL_SPI_Transmit(&hspi1, TxData, sizeof(TxData), 100);
+	CS_OFF;
+	//
+	CS_ON;
+	address=0x0A;
+	HAL_SPI_Transmit(&hspi1, &address, 1, 100);
+	HAL_SPI_Receive(&hspi1, RxData, sizeof(TxData), 100);
+	CS_OFF;
+
+
+
+    /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
@@ -247,6 +267,12 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6|GPIO_PIN_7, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PA4 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PD12 PD13 PD14 PD15 */
   GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;

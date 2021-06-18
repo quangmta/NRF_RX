@@ -213,7 +213,7 @@ void IRQ_Callback(void)
   }
 }
 //------------------------------------------------
-void NRF24L01_Receive(void)
+void NRF24L01_Receive(uint8_t *RxData)
 {
   NRF24L01_RX_Mode();
   uint8_t status=0x01;
@@ -226,9 +226,10 @@ void NRF24L01_Receive(void)
   status = NRF24_ReadReg(STATUS);
   if(status & 0x40)
   {
-    NRF24_Read_Buf(RD_RX_PLOAD,RX_BUF,TX_PLOAD_WIDTH);
+    NRF24_Read_Buf(RD_RX_PLOAD,RxData,TX_PLOAD_WIDTH);
     NRF24_WriteReg(STATUS, 0x40);
     LED_TGL;
+    //HAL_Delay(250);
   }
 }
 //---------------------------------------------------

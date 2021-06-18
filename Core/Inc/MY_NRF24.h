@@ -13,6 +13,9 @@
 #define CE_PIN GPIO_PIN_7
 #define CE_RESET HAL_GPIO_WritePin(CE_GPIO_PORT, CE_PIN, GPIO_PIN_RESET)
 #define CE_SET HAL_GPIO_WritePin(CE_GPIO_PORT, CE_PIN, GPIO_PIN_SET)
+#define IRQ_GPIO_PORT GPIOA
+#define IRQ_PIN GPIO_PIN_2
+#define IRQ HAL_GPIO_ReadPin(IRQ_GPIO_PORT, IRQ_PIN)
 #define LED_GPIO_PORT GPIOD
 #define LED_PIN GPIO_PIN_12
 #define LED_ON HAL_GPIO_WritePin(LED_GPIO_PORT, LED_PIN, GPIO_PIN_SET)
@@ -55,7 +58,7 @@ void NRF24_ini(void);
 uint8_t NRF24_ReadReg(uint8_t addr);
 void NRF24_Read_Buf(uint8_t addr,uint8_t *pBuf,uint8_t bytes);
 uint8_t NRF24L01_Send(uint8_t *pBuf);
-void NRF24L01_Receive(void);
+void NRF24L01_Receive(uint8_t *RxData);
 void IRQ_Callback(void);
 void NRF24L01_TX_Mode(void);
 void NRF24L01_RX_Mode(void);
