@@ -72,6 +72,20 @@ extern uint8_t rx_flag,tx_flag;
 //
 //	}
 //}
+void testBuf()
+{
+	CS_ON;
+	address=0x0A|0x20;
+	HAL_SPI_Transmit(&hspi1, &address, 1, 100);
+	HAL_SPI_Transmit(&hspi1, TxData, sizeof(TxData), 100);
+	CS_OFF;
+	//
+	CS_ON;
+	address=0x0A;
+	HAL_SPI_Transmit(&hspi1, &address, 1, 100);
+	HAL_SPI_Receive(&hspi1, RxData, sizeof(TxData), 100);
+	CS_OFF;
+}
 /* USER CODE END 0 */
 
 /**
@@ -108,25 +122,13 @@ int main(void)
   /* USER CODE END 2 */
   NRF24_ini();
   NRF24L01_RX_Mode();
+  testBuf();
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-	CS_ON;
-	address=0x0A|0x20;
-	HAL_SPI_Transmit(&hspi1, &address, 1, 100);
-	HAL_SPI_Transmit(&hspi1, TxData, sizeof(TxData), 100);
-	CS_OFF;
-	//
-	CS_ON;
-	address=0x0A;
-	HAL_SPI_Transmit(&hspi1, &address, 1, 100);
-	HAL_SPI_Receive(&hspi1, RxData, sizeof(TxData), 100);
-	CS_OFF;
-
-
 
     /* USER CODE BEGIN 3 */
   }
