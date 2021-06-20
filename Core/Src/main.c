@@ -64,14 +64,15 @@ uint8_t TxData[] = "play";
 uint8_t address;
 extern uint8_t Rx_str[5];
 extern uint8_t rx_flag,tx_flag;
-//void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-//{
-//	if(GPIO_Pin==GPIO_PIN_4)
-//	{
-//		IRQ_Callback();
-//
-//	}
-//}
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if(GPIO_Pin==GPIO_PIN_4)
+	{
+		//HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_12);
+		IRQ_Callback();
+
+	}
+}
 void testBuf()
 {
 	CS_ON;
@@ -119,9 +120,9 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  /* USER CODE END 2 */
   NRF24_ini();
   NRF24L01_RX_Mode();
+  /* USER CODE END 2 */
   testBuf();
 
   /* Infinite loop */
@@ -289,6 +290,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
 
 }
 
